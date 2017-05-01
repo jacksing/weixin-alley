@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+    {% with messages = get_flashed_messages() %}
+        <form action="" method="post">
+            <h1 class="text-center">Input your QR login url</h1>
+            {% if messages %}
+                <input class="form-control text-center" type="text" name="qr-url" value="{{messages[1]}}" autocomplete="off">
+            {% else %}
+                <input class="form-control text-center" type="text" name="qr-url" value="" autocomplete="off">
+            {% endif %}
+            <div class="radio-set">
+                {% for key, value in auth_methods.items()  %}
+                    <div class="radio">
+                        <label>
+                            {% if loop.index == 1 %}
+                            <input type="radio" name="auth-method" value="{{key}}" checked>
+                            {% else %}
+                            <input type="radio" name="auth-method" value="{{key}}">
+                            {% endif %}
+                            {{value}}
+                        </label>
+                    </div>
+                {% endfor %}
+            </div>
+            {% if messages %}
+                <div><span class="text-danger">{{messages[0]}}</span></div>
+            {% endif %}
+            <div class="commit-area">
+                <button class="btn btn-warning" type="submit">Submit</button>
+            </div>
+        </form>
+    {% endwith %}
+</div>
+{% endblock content %}
+
+{% block js %}
+
+{% endblock %}
